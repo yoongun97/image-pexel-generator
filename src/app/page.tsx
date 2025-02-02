@@ -9,7 +9,7 @@ export default function Home() {
         <div className="flex flex-col gap-y-10">
           <Link
             className="text-center hover:bg-slate-400 hover:border-slate-200 border border-slate-950 rounded px-10 py-2 "
-            href={PATH.WORK}
+            href={PATH.ADD}
           >
             Work Space
           </Link>
