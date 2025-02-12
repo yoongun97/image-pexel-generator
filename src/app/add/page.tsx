@@ -1,4 +1,5 @@
 "use client";
+import { rgbToHex } from "@/utils/color";
 import React, { useRef, useState } from "react";
 
 interface ColorCount {
@@ -88,7 +89,7 @@ export default function Add() {
       const r = data[i];
       const g = data[i + 1];
       const b = data[i + 2];
-      const color = `rgb(${r},${g},${b})`;
+      const color = rgbToHex(r, g, b);
 
       colorMap[color] = (colorMap[color] || 0) + 1;
     }
@@ -98,10 +99,35 @@ export default function Add() {
     );
   };
 
+  const printCanvas = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const dataUrl = canvas.toDataURL("image/png");
+    const printWindow = window.open("", "_blank");
+
+    if (printWindow) {
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Print Canvas</title>
+          </head>
+          <body onload="window.print(); window.close();">
+            <img src="${dataUrl}" style="width: 100%;" />
+          </body>
+        </html>
+      `);
+      printWindow.document.close();
+    }
+  };
+
   return (
     <div>
       <h1>Image Split and Color Analysis</h1>
       <input type="file" onChange={handleFileChange} accept="image/*" />
+      <button onClick={printCanvas} style={{ margin: "10px", padding: "10px" }}>
+        인쇄하기
+      </button>
       <div style={{ marginTop: "10px" }}>
         <label>
           Columns:
