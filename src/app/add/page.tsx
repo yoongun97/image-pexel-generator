@@ -1,4 +1,5 @@
 "use client";
+import ColorTable from "@/components/list/ColorTable";
 import { getMostFrequentColor, printCanvas } from "@/utils/helpers";
 import { ColorCount } from "@/utils/types";
 import React, { useRef, useState } from "react";
@@ -133,27 +134,17 @@ export default function Add() {
           인쇄하기
         </button>
       </div>
-      <canvas
-        ref={canvasRef}
-        style={{ border: "1px solid black", marginTop: "20px" }}
-      ></canvas>
-      <div style={{ marginTop: "20px" }}>
-        <h3>Used Colors and Counts</h3>
-        <ul>
-          {Object.entries(colorCounts).map(([color, count]) => (
-            <li key={color} style={{ display: "flex", alignItems: "center" }}>
-              <div
-                style={{
-                  background: color,
-                  width: "20px",
-                  height: "20px",
-                  marginRight: "10px",
-                }}
-              ></div>
-              {color}: {count}
-            </li>
-          ))}
-        </ul>
+      <div className="flex justify-between">
+        <canvas
+          ref={canvasRef}
+          className="border border-black mt-5 h-fit"
+        ></canvas>
+        <div className="mt-5 ">
+          <h3>Used Colors and Counts</h3>
+          <div className="h-[calc(100vh-250px)] overflow-auto">
+            <ColorTable colorCounts={colorCounts} />
+          </div>
+        </div>
       </div>
     </div>
   );
