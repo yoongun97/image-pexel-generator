@@ -8,3 +8,7 @@ export interface WorkItem {
   height: number;
   file: File | null;
 }
+
+export interface ColorCount {
+  [key: string]: number;
+}
