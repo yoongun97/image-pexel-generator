@@ -1,6 +1,10 @@
 import { ColorCount } from "@/utils/types";
 
-export default function ColorTable({ colorCounts }: ColorCount) {
+export default function ColorTable({
+  colorCounts,
+}: {
+  colorCounts: ColorCount;
+}) {
   return (
     <table style={{ borderCollapse: "collapse", width: "300px" }}>
       <thead>
