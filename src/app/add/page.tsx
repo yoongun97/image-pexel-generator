@@ -59,14 +59,18 @@ export default function Add() {
           const mostFrequentColor = getMostFrequentColor(imageData);
 
           // Draw color code on the cell
-          ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
-          ctx.fillRect(col * cellWidth, row * cellHeight, 80, 20);
           ctx.fillStyle = mostFrequentColor;
-          ctx.fillText(
-            mostFrequentColor,
-            col * cellWidth + 5,
-            row * cellHeight + 15
+          ctx.fillRect(
+            col * cellWidth,
+            row * cellHeight,
+            cellWidth,
+            cellHeight
           );
+          // ctx.fillText(
+          //   mostFrequentColor,
+          //   col * cellWidth + 5,
+          //   row * cellHeight + 15
+          // );
 
           // Update global color count
           newColorCounts[mostFrequentColor] =
@@ -83,36 +87,50 @@ export default function Add() {
   };
 
   return (
-    <div>
-      <h1>Image Split and Color Analysis</h1>
-      <input type="file" onChange={handleFileChange} accept="image/*" />
-      <button
-        onClick={handlePrintBtn}
-        style={{ margin: "10px", padding: "10px" }}
-      >
-        인쇄하기
-      </button>
-      <div style={{ marginTop: "10px" }}>
-        <label>
-          Columns:
-          <input
-            type="number"
-            value={columns}
-            onChange={(e) => setColumns(parseInt(e.target.value))}
-            min="1"
-          />
-        </label>
-        <label style={{ marginLeft: "10px" }}>
-          Rows:
-          <input
-            type="number"
-            value={rows}
-            onChange={(e) => setRows(parseInt(e.target.value))}
-            min="1"
-          />
-        </label>
-        <button onClick={handleProcessImage} style={{ marginLeft: "10px" }}>
-          Process Image
+    <div className="w-full h-screen p-10">
+      <h1 className="w-full text-center text-2xl font-semibold">
+        Image Split and Color Analysis
+      </h1>
+      <div className="flex justify-between mt-5 p-2">
+        <input
+          type="file"
+          className="bg-transparent border-white border cursor-pointer"
+          onChange={handleFileChange}
+          accept="image/*"
+        />
+        <div className="flex items-center gap-x-5">
+          <label className="flex gap-x-2">
+            Columns:
+            <input
+              className="bg-transparent border-2 rounded border-white px-1"
+              type="number"
+              value={columns}
+              onChange={(e) => setColumns(parseInt(e.target.value))}
+              min="1"
+            />
+          </label>
+          <label className="flex gap-x-2">
+            Rows:
+            <input
+              className="bg-transparent border-2 rounded border-white px-1"
+              type="number"
+              value={rows}
+              onChange={(e) => setRows(parseInt(e.target.value))}
+              min="1"
+            />
+          </label>
+          <button
+            className="border border-white rounded p-1"
+            onClick={handleProcessImage}
+          >
+            Process Image
+          </button>
+        </div>
+        <button
+          className="border border-white rounded p-1"
+          onClick={handlePrintBtn}
+        >
+          인쇄하기
         </button>
       </div>
       <canvas
